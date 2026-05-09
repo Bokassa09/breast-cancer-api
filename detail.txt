@@ -1,0 +1,1 @@
+Déploiement d'un pipeline Semi-Supervisé (Self-Training) via FastAPI et Docker — classification médicale (Breast Cancer)
