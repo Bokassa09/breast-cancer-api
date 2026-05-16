@@ -6,6 +6,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY main.py .
+COPY database.py .
 COPY model.pkl .
 COPY scaler.pkl .
 
