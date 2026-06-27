@@ -1,0 +1,36 @@
+# Pipeline d'intégration continue
+name: CI Breast Cancer API
+
+# Quand déclencher 
+on:
+  push:
+    branches: [master]  # à chaque push sur master
+
+jobs:
+
+  # Tests automatiques 
+  tests:
+    runs-on: ubuntu-latest  
+
+    steps:
+
+   
+      - name: Récupérer le code
+        uses: actions/checkout@v3
+      
+      
+      - name: Installer Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+    
+      - name: Installer les dépendances
+        run: |
+          pip install -r requirements.txt
+          pip install pytest httpx
+
+      
+      - name: Lancer les tests pytest
+        run: pytest tests/ -v
+       
