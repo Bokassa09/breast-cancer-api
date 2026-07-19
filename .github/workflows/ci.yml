@@ -1,36 +1,51 @@
-# Pipeline d'intégration continue
-name: CI Breast Cancer API
+# Pipeline
+name: CI/CD Breast Cancer API
 
-# Quand déclencher 
 on:
   push:
-    branches: [master]  # à chaque push sur master
+    branches: [master]
 
 jobs:
 
   # Tests automatiques 
   tests:
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-latest
 
     steps:
-
-   
       - name: Récupérer le code
         uses: actions/checkout@v3
-      
-      
+
       - name: Installer Python 3.10
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-    
       - name: Installer les dépendances
         run: |
           pip install -r requirements.txt
           pip install pytest httpx
 
-      
       - name: Lancer les tests pytest
         run: pytest tests/ -v
-       
+
+  # Déploiement sur Hugging Face 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: tests  # attend que les tests passent
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v3
+
+      - name: Installer git-lfs
+        run: git lfs install
+
+      - name: Configurer Git
+        run: |
+          git config user.email "bouekeomerbocassa@gmail.com"
+          git config user.name "Bokassa09"
+
+      - name: Pousser sur Hugging Face
+        run: |
+          git remote add huggingface https://Bokassa09:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/Bokassa09/breast-cancer-api
+          git push huggingface master:main --force
