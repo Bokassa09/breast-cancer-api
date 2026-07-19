@@ -1,4 +1,4 @@
-# Breast Cancer Classifier — Semi-Supervised Learning
+# Breast Cancer Classifier : Semi-Supervised Learning
 
 API de classification de tumeurs mammaires basée sur une approche de Semi-Supervised Learning avec Self-Training.
 
