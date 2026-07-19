@@ -1,3 +1,13 @@
+---
+title: Breast Cancer Classifier
+emoji: 🩺
+colorFrom: blue
+colorTo: green
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # Breast Cancer Classifier : Semi-Supervised Learning
 
 API de classification de tumeurs mammaires basée sur une approche de Semi-Supervised Learning avec Self-Training.
