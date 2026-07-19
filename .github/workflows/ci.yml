@@ -28,14 +28,16 @@ jobs:
       - name: Lancer les tests pytest
         run: pytest tests/ -v
 
-  # Déploiement sur Hugging Face 
+# Déploiement sur Hugging Face 
   deploy:
     runs-on: ubuntu-latest
-    needs: tests  # attend que les tests passent
+    needs: tests
 
     steps:
-      - name: Récupérer le code
+      - name: Récupérer le code complet
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  #  cloner all l'historique
 
       - name: Installer git-lfs
         run: git lfs install
@@ -48,4 +50,4 @@ jobs:
       - name: Pousser sur Hugging Face
         run: |
           git remote add huggingface https://Bokassa09:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/Bokassa09/breast-cancer-api
-          git push huggingface master:main --force
+          git push huggingface HEAD:main --force
